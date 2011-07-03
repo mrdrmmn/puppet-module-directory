@@ -11,7 +11,7 @@
 # Sample Usage:
 #
 # [Remember: No empty lines between comments and class definition]
-define directory {
+define directory (
     $recurse = false,
     $inherit = false,
     $owner   = undef,
