@@ -33,12 +33,13 @@ define directory (
         
     if( ! defined( File[$path] ) ) {
         @file { $path: ensure => $file_ensure }
-        if( $owner != ""   ) { File[$path] { owner +> $owner }     }
-        if( $group != ""   ) { File[$path] { group +> $owner }     }
-        if( $require != "" ) { File[$path] { require +> $require } }
+        if( $owner   != '' ) { File[ $path ] { owner +> $owner     } }
+        if( $group   != '' ) { File[ $path ] { group +> $owner     } }
+        if( $mode    != '' ) { File[ $path ] { mode  +> $mode      } }
+        if( $require != '' ) { File[ $path ] { require +> $require } }
         if( $ensure == "absent" ) {
             # This shit is janky, but puppet refuses to even attempt to remove
-            # a directory unless you force it and the it is guaranteed to
+            # a directory unless you force it and then it is guaranteed to
             # remove it's contents.  Maybe I want it to fail if the directory
             # is not empty.  Sigh...
             File[$path] { force => true }
