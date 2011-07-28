@@ -29,6 +29,15 @@ define directory (
     default => $path
   }
 
+  # Unset the 'File' defaults to ensure we don't break things!
+  File{
+    ensure  => undef,
+    owner   => undef,
+    group   => undef,
+    mode    => undef,
+    content => undef,
+  }
+
   $parent = inline_template( '<%= config_path.split("/").slice(0 .. -2).join("/") %>' )
   case $ensure {
     present: { $file_ensure = "directory" }
