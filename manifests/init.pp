@@ -18,7 +18,7 @@ define directory (
   $owner   = undef,
   $group   = undef,
   $ensure  = "present",
-  $mode    = ""
+  $mode    = undef
 ) {
   # If you want to allow removals to recurse downward, change
   # $remove_down to be true.
@@ -39,7 +39,7 @@ define directory (
     @file { $config_path: ensure => $file_ensure }
     if( $owner   != '' ) { File[ $config_path ] { owner +> $owner     } }
     if( $group   != '' ) { File[ $config_path ] { group +> $owner     } }
-    if( $mode    != '' ) { File[ $config_path ] { mode  +> $mode      } }
+    if( $mode ) { File[ $config_path ] { mode  +> $mode      } }
     if( $ensure == "absent" ) {
       # This shit is janky, but puppet refuses to even attempt to remove
       # a directory unless you force it and then it is guaranteed to
